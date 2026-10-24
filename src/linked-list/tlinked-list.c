@@ -1,8 +1,8 @@
-#include "linked-list.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../logger/logger.h"
+#include <tlinked-list.h>
+#include <tlogger.h>
 
 struct linked_list_t* linkedl_append(struct linked_list_t *plist, int data) {
     if (plist == NULL) {

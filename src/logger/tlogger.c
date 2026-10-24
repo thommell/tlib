@@ -1,6 +1,5 @@
 #include <stdio.h>
-
-#include "logger.h"
+#include <tlogger.h>
 
 void logm(enum LOG_TYPE type, char *message) {
     const char *log_state = get_enum_str(type);

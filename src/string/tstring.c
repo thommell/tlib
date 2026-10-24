@@ -1,5 +1,7 @@
-#include "string.h"
 #include <stdio.h>
+
+#include <tstring.h>
+#include <tlogger.h>
 
 void *string_memcpy(void *dest, const void *src, size_t length) {
   unsigned char *_dest = dest;
@@ -14,7 +16,8 @@ void *string_memcpy(void *dest, const void *src, size_t length) {
 
 string_t* string_init(char* str) {
   size_t length = string_length(str);
-  string_t *new_string = calloc(length+1, sizeof(string_t));
+  string_t *new_string = calloc(1, sizeof(string_t));
+  new_string->data = calloc(length+1, sizeof(char));
 
   string_memcpy(new_string->data, str, length+1);
   // new_string->data[length] = '\0';
@@ -24,7 +27,7 @@ string_t* string_init(char* str) {
 
 int string_length(char* str) {
   if (str == NULL) {
-    printf("The given char pointer is NULL.\n");
+    logm(WARN, "The given char pointer is NULL.");
     return -1;
   }
 
@@ -38,13 +41,13 @@ int string_length(char* str) {
   return position;
 }
 
-int main(void) { 
-  char *hello = "hello";
-  size_t length = string_length(hello);
-  printf("The length of: %s is: %zu", hello, length);
+void string_free(string_t** str) {
+    if (*str == NULL) {
+        logm(ERROR, "The given pointer is NULL - freeing failed.");
+        return;
+    }
 
-  string_t *string = string_init(hello);
-  printf("Set data: %s", string->data);
-
-  return 0;
+    free((*str)->data);
+    free(*str);
+    *str = NULL;
 }
