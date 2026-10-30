@@ -1,8 +1,11 @@
 #pragma once
 
+//TODO: doxygen comments explaining functions / attributes.
+
 struct linked_node_t {
     int data;
     struct linked_node_t *next;
+    //TODO: implementation, this is always NULL.
     struct linked_node_t *previous;
 };
 

@@ -1,22 +1,30 @@
+#include <stdio.h>
 #include <tlogger.h>
 #include <stdlib.h>
 #include <tarray.h>
 
-array_t* array_init(size_t length, void *start_value) {
+array_t* array_init(size_t capacity) {
     array_t *arr = malloc(sizeof(array_t));
-    *arr->data = malloc(length * sizeof(void*));
     if (arr == NULL) {
-        logm(FATAL, "Can't allocate more memory!");
+        logm(FATAL, "Allocating the array failed!");
         return NULL;
     }
-
-    arr->length = length;
-    for (size_t i = 0; i < length; ++i) {
-        arr->data[i] = start_value;
+    arr->data = calloc(1, capacity * sizeof(int));
+    if ((arr)->data == NULL) {
+        logm(FATAL, "Allocating array's data failed!");
+        free(arr);
+        return NULL;
     }
-    logm(DEBUG, "Successfully set the array!");
+    arr->count = capacity;
 
+    logm(DEBUG, "Successfully set the array!");
     return arr;
+}
+
+void array_push(array_t *arr, int value) {
+    if (arr->count+1 > arr->capacity) {
+
+    }
 }
 
 void array_free(array_t **arr) {
@@ -25,10 +33,8 @@ void array_free(array_t **arr) {
         return;
     }
 
-    size_t pos = 0;
-    for (size_t i = 0; i < (*arr)->length; ++i) {
-        free((*arr)->data[i]);
-    }
+    free((*arr)->data);
+
     free(*arr);
     *arr = NULL;
 }
