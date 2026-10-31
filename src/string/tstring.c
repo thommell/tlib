@@ -24,20 +24,26 @@ void string_copy(string_t *dest, const string_t *src) {
 int string_append(string_t *dest, const string_t *src) {
     size_t new_len = dest->length-1 + src->length;
     size_t original_len = dest->length;
-    void *temp = realloc(dest, new_len);
+
+    void *temp = realloc(dest->data, new_len);
     if (temp == NULL) {
         logm(ERROR, "Couldn't reallocate more memory. [TSTRING.C]");
         return -1;
     }
+
     dest = temp;
 
     size_t curr_src_pos = 0;
     size_t curr_dest_pos = original_len-1;
+
     while (curr_src_pos <= src->length) {
         dest->data[curr_dest_pos] = src->data[curr_src_pos];
         ++curr_src_pos;
         ++curr_dest_pos;
     }
+    printf("%s", dest->data);
+
+
     return 0;
 }
 
