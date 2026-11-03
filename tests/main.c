@@ -1,17 +1,10 @@
-#include <stdio.h>
+#include <textformatter.h>
 #include <tlogger.h>
 #include <tstring.h>
 #include <tarray.h>
-#include <inttypes.h>
+#include <tlist.h>
 
 int main(void) {
-    string_t *one = string_init("Hello");
-    string_t *two = string_init("World");
-    string_append(one, two);
-
-    printf("%s", one->data);
-
-    string_free(&one);
-    string_free(&two);
+    logm(FATAL, text_fm("age: %d", 10)); 
     return 0;
 }

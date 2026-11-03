@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <tstring.h>
 #include <tlogger.h>
@@ -25,24 +26,20 @@ int string_append(string_t *dest, const string_t *src) {
     size_t new_len = dest->length-1 + src->length;
     size_t original_len = dest->length;
 
-    void *temp = realloc(dest->data, new_len);
+    char *temp = realloc(dest->data, new_len);
     if (temp == NULL) {
         logm(ERROR, "Couldn't reallocate more memory. [TSTRING.C]");
         return -1;
     }
+    dest->data = temp;
 
-    dest = temp;
-
-    size_t curr_src_pos = 0;
-    size_t curr_dest_pos = original_len-1;
-
-    while (curr_src_pos <= src->length) {
+    size_t curr_src_pos = 0, curr_dest_pos = original_len-1;
+    while (curr_src_pos < src->length) {
         dest->data[curr_dest_pos] = src->data[curr_src_pos];
         ++curr_src_pos;
         ++curr_dest_pos;
     }
-    printf("%s", dest->data);
-
+    dest->length = new_len;
 
     return 0;
 }
@@ -75,7 +72,7 @@ int string_length(char* str) {
 	return position;
 }
 
-size_t string_count_char(string_t *str, char c) {
+size_t string_count_char(string_t *str, const char c) {
     size_t pos = 0, occurring = 0;
 
     if (str == NULL) {
@@ -93,6 +90,21 @@ size_t string_count_char(string_t *str, char c) {
     }
 
     return occurring;
+}
+
+void string_replace_char(string_t *str, const char target, const char new) {
+    size_t pos = 0;
+    if (str == NULL) {
+        logm(ERROR, "The given string is null.");
+        return;
+    }
+
+    while (pos < str->length) {
+        if (str->data[pos] == target) {
+            str->data[pos] = new;
+        }
+        pos++;
+    }
 }
 
 void string_free(string_t** str) {

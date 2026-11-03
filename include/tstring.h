@@ -9,13 +9,17 @@ typedef struct {
 } string_t;
 
 /// @brief Allocates and initializes the string.
+/// @param str: The new string's data.
+/// @return A newly allocated string.
 string_t* string_init(char* str);
 
 /// @brief Frees the initialized string.
+/// @param str: The string to be freed.
 void string_free(string_t** str);
 
-//TODO: doxygen
 /// @brief Copies the given source string.
+/// @param dest: The string to be copied TO.
+/// @param src: The string to be copied FROM.
 void string_copy(string_t *dest, const string_t *src);
 
 /// @brief Appends the source string on the destination string. This loops until the source's length.
@@ -25,10 +29,18 @@ void string_copy(string_t *dest, const string_t *src);
 int string_append(string_t *dest, const string_t *src);
 
 /// @brief Counts the amount of times the character is in the string.
+/// This is case-insensitive.
 /// @param str: The given string.
 /// @param c: The given character.
 /// @return Returns the amount of times the character is in the string.
-size_t string_count_char(string_t *str, char c);
+size_t string_count_char(string_t *str, const char c);
+
+/// @brief Replaces all the occurring target char's to the new char. 
+/// This is case-sensitive.
+/// @param str: The given string.
+/// @param target: The character that will get replaced.
+/// @param new: The character to replace it with.
+void string_replace_char(string_t *str, const char target, const char new);
 
 /// @brief Copies all the bytes from source onto the destination till the length.
 void *string_memcpy(void *dest, const void *src, size_t length);

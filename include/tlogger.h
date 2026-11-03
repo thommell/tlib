@@ -1,5 +1,7 @@
 #pragma once
 
+char* text_fm(const char *text, ...);
+
 enum LOG_TYPE{
     DEBUG,
     INFO,
