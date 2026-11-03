@@ -10,6 +10,8 @@ add_library(tlib STATIC
     src/logger/tlogger.c
     src/string/tstring.c
     src/linked-list/tlinked-list.c
+    src/array/tarray.c
+    src/list/tlist.c
 )
 
 target_include_directories(tlib

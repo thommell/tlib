@@ -1,10 +1,9 @@
 #include <tlogger.h>
 #include <tstring.h>
+#include <tarray.h>
+#include <tlist.h>
 
 int main(void) {
-    logm(INFO, "Information!");
-    string_t *string = string_init("Hello world!");
-    logm(DEBUG, string->data);
-    string_free(&string);
+    logm(FATAL, text_fm("age: %d", 10)); 
     return 0;
 }
