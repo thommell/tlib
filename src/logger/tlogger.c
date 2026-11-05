@@ -11,8 +11,11 @@ char* text_fm(const char *text, ...) {
 
     char *buffer = buffers[index];
     va_list args;
+    // start extracting the arguments given by ...
     va_start(args, text);
+    // transfer the text and arguments to the buffer
     vsprintf(buffer, text, args);
+    // end the extraction properly
     va_end(args);
 
     index = (index + 1) % 4;

@@ -12,6 +12,7 @@ add_library(tlib STATIC
     src/linked-list/tlinked-list.c
     src/array/tarray.c
     src/list/tlist.c
+    src/arena/tarena.c
 )
 
 target_include_directories(tlib
